@@ -1,0 +1,36 @@
+extends admin-layout
+block content
+    article.col-md-6
+        h2 Variables Globales
+        hr
+        if message
+            div(role="alert").alert.alert-success
+                strong=message
+        form(action='/globales',method='post')
+            input(type="hidden", name="id", value=globales.id);
+            div.form-group
+                label(for='prox_apertura_date')=('Próxima apertura - Fecha:')
+                input(name='prox_apertura_date',type='text',id='datepicker', value=globales.prox_apertura_date).form-control
+                
+            div.form-group
+                label(form='prox_apertura_hora_desde')=('Próxima apertura - Hora desde:')
+                input(name='prox_apertura_hora_desde',type='text',class='timepicker', value=globales.prox_apertura_hora_desde).form-control
+
+            div.form-group
+                label(for='prox_apertura_hora_hasta')=('Próxima apertura - Hora hasta:')
+                input(name='prox_apertura_hora_hasta',type='text',class='timepicker', value=globales.prox_apertura_hora_hasta).form-control
+
+            div.form-group
+                button(type='submit').btn.btn-primary
+                    | Guardar cambios a Variables Globales
+ 
+
+    article.col-md-6
+
+    script.
+        function deleteConfirmation(id) 
+        {
+            if(confirm("Estas seguro que queres borrar este item?")) {
+                document.getElementById(id).submit();
+            }
+        }

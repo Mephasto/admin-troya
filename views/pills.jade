@@ -1,0 +1,142 @@
+extends admin-layout
+block content
+
+    article.col-md-6
+        if pilledit
+            - var title = 'Editando: "'+pilledit.nombre+'"'
+            h2(class="bg-success")= title
+        else
+            h2 Crear nueva Pildora
+        hr
+        if message
+            - var klass = (messageType === 'success' ? 'alert-success' : 'alert-warning')
+            div(role="alert").alert.alert-dismissible(class=klass)
+                strong=message
+
+        form(action='/pills',method='post', enctype='multipart/form-data')
+            if pilledit
+                input(type="hidden", name="id", value=pilledit.id);
+                input(type="hidden", name="action", value="update");
+            else
+                input(type="hidden", name="action", value="post");
+            div.row.form-group
+                div.col-xs-8
+                    label(for='nombre')=('Nombre')
+                    input(name='nombre',type='text', value=pilledit.nombre).form-control
+                        
+                div.col-xs-4
+                    label(for='pill_type')=('Tipo de Pildora')
+                    select(name='pill_type').form-control
+                        option(value='imagen', selected=(pilledit.pill_type == 'imagen')) Imagen
+                        option(value='video', selected=(pilledit.pill_type == 'video')) Video
+
+            div.form-group
+                label(for='titulo_b')=('Sub Título superior')
+                input(name='titulo_b',type='text', value=pilledit.titulo_b).form-control
+
+            div.form-group
+                label(for='titulo_a')=('Título Pricipal')
+                input(name='titulo_a',type='text', value=pilledit.titulo_a).form-control
+
+            div.form-group
+                label(for='texto_boton')=('Téxto boton')
+                input(name='texto_boton',type='text', value=pilledit.texto_boton).form-control
+
+            hr
+
+            div.row.form-group
+                div.col-xs-8
+                    label(for='url')=('Link url')
+                    div.input-group
+                        div.input-group-addon= 'http://'
+                        input(name='url',type='text', value=pilledit.url).form-control
+
+                div.col-xs-4
+                    label(for='url_type')=('Link tipo')
+                    select(name='url_type').form-control
+                            option(value='_blank', selected=(pilledit.url_type == "_blank")) Abre ventana nueva
+                            option(value='_self', selected=(pilledit.url_type == "_self")) Navega misma ventana
+
+            div.row.form-group
+                div.col-xs-6
+                    label(for='date_from')=('Fecha desde')
+                    input(name='date_from',type='text',id='datepicker', value=pilledit.date_from).form-control
+
+                div.col-xs-6
+                    label(for='date_to')=('Fecha hasta')
+                    input(name='date_to',type='text',id='datepicker-b', value=pilledit.date_to).form-control
+
+            hr
+
+            div.form-group
+                label(for='imagen')=('Foto (img)')
+                if  pilledit.imagen
+                    img(src="/images/pills/"+pilledit.imagen, alt="")
+                    input(name='imagen',type='file')
+                else
+                    input(name='imagen',type='file')
+
+            div.row.form-group
+                div.col-xs-6
+                    label(for='columna')=('Posicion')
+                    select(name='columna').form-control
+                        option(value='0', selected=(pilledit.columna == 0)) Izquierda
+                        option(value='1', selected=(pilledit.columna == 1)) Centro
+                        option(value='2', selected=(pilledit.columna == 2)) Derecha
+
+                div.col-xs-6
+                    label(for='destacado')=('Destacado')
+                    input(type="checkbox", name="destacado").form-control
+
+            div.form-group
+                button(type='submit').btn.btn-primary
+                    | Guardar Pildora
+
+    article.col-md-6
+        h2 Listado de Pildoras
+        hr
+        table.table.table-condensed
+            tr
+                th= 'Col.'
+                th= 'Dest.'
+                th= 'Nombre'
+                th= 'Img.'
+                th= 'Activo desde'
+                th= 'Activo hasta'
+                th= ''
+                th= ''
+
+            each item in pills
+                tr(class=item.id === pilledit.id ? "success" : "")
+                    if (item.columna == 0)
+                        td= "Izq"
+                    else if (item.columna == 1)
+                        td= "Cen"
+                    else if (item.columna == 2)
+                        td= "Der"
+                    td(class="text-center")
+                        span(class=item.destacado === true ? "glyphicon glyphicon-ok" : "")
+                    td
+                        span= item.nombre
+                    td
+                        if item.imagen
+                            a(href="/images/pills/" + item.imagen).glyphicon.glyphicon-picture.text-success
+                        else
+                            span.glyphicon.glyphicon-minus
+                    td(class="date")= item.date_from
+                    td(class="date")= item.date_to
+                    td
+                        form(action='/pills', method='get', id="edit"+item.id)
+                            input(type='hidden', name='id', value=item.id)
+                            a(onclick="document.getElementById('edit"+item.id+"').submit();").glyphicon.glyphicon-pencil.text-success
+                    td
+                        form(action='/pills/del', method='post', id="delete"+item.id)
+                            input(type='hidden', name='id', value=item.id)
+                            a(onclick="deleteConfirmation('" + item.id + "');").glyphicon.glyphicon-remove.text-danger
+    script.
+        function deleteConfirmation(id)
+        {
+            if(confirm("Estas seguro que queres borrar este item?")) {
+                document.getElementById("delete"+id).submit();
+            }
+        }

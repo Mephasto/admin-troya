@@ -1,0 +1,29 @@
+header
+    .navbar.navbar-default
+      .container
+        .navbar-header
+          a.navbar-brand(href='#') Tienda Troya
+        .navbar-collapse.collapse
+            ul.nav.navbar-nav
+                if activeNav=='banners'
+                    li.active
+                        a(href='/banners')=('Banners')
+                else
+                    li
+                        a(href='/banners')=('Banners')
+                if activeNav=='pills'
+                    li.active
+                        a(href='/pills')=('Pildoras')
+                else
+                    li
+                        a(href='/pills')=('Pildoras')
+                if activeNav=='globales'
+                    li.active
+                        a(href='/globales')=('Variables Globales')
+                else
+                    li
+                        a(href='/globales')=('Variables Globales')
+                endif
+            ul.nav.navbar-nav.navbar-right
+                li 
+                    a(href='/logout')=('LogOut')
