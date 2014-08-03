@@ -70,11 +70,12 @@ block content
 
             div.form-group
                 label(for='imagen')=('Foto (img)')
-                if  pilledit.imagen
-                    img(src="/images/pills/"+pilledit.imagen, alt="")
-                    input(name='imagen',type='file')
-                else
-                    input(name='imagen',type='file')
+                pre
+                    if  pilledit.imagen
+                        img(src="/images/pills/"+pilledit.imagen, alt="")
+                        input(name='imagen',type='file')
+                    else
+                        input(name='imagen',type='file')
 
             div.row.form-group
                 div.col-xs-6
