@@ -27,8 +27,8 @@ block content
                 div.col-xs-4
                     label(for='pill_type')=('Tipo de Pildora')
                     select(name='pill_type').form-control
-                        option(value='imagen', selected=(pilledit.pill_type == 'imagen')) Imagen
-                        option(value='video', selected=(pilledit.pill_type == 'video')) Video
+                        option(value='default', selected=(pilledit.pill_type == 'default')) Completa
+                        option(value='no-link', selected=(pilledit.pill_type == 'no-link')) Sin Boton
 
             div.form-group
                 label(for='titulo_b')=('Sub Título superior')

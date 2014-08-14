@@ -291,7 +291,7 @@ server.get('/getBanners', function(req,res){
 
 server.get('/getPills', function(req,res){
   var query = models.Pill.find();
-  query.sort('provincia').execFind(function (err, pills) {
+  query.sort('destacado').execFind(function (err, pills) {
     if(err === null){
       res.send(req.query.callback + "(" + JSON.stringify(pills) + ");");
     }
