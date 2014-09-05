@@ -139,7 +139,8 @@ server.post('/banners/del', function(req,res){
 ///////////////////////////////////////////
 
 // GET: Pills
-server.get('/pills', checkAuth, function(req,res){
+// checkAuth, 
+server.get('/pills', function(req,res){
   return models.Pill.findById(req.query.id, function (err, pill_edit) {
     // FEEDBACK Messages
     var message = ''; var messageType = '';
@@ -149,7 +150,7 @@ server.get('/pills', checkAuth, function(req,res){
     }
 
     var query = models.Pill.find();
-    query.sort('nombre').execFind(function (err, pills) {
+    query.sort({destacado: -1}).execFind(function (err, pills) {
       if(err === null){
         if(pill_edit === undefined || pill_edit === null) pill_edit = '';
         res.render('pills.jade', {

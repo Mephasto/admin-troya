@@ -26,9 +26,10 @@ block content
                         
                 div.col-xs-4
                     label(for='pill_type')=('Tipo de Pildora')
-                    select(name='pill_type').form-control
+                    select(name='pill_type', id='pill_type').form-control
                         option(value='default', selected=(pilledit.pill_type == 'default')) Completa
                         option(value='no-link', selected=(pilledit.pill_type == 'no-link')) Sin Boton
+                        option(value='video', selected=(pilledit.pill_type == 'video')) Video
 
             div.form-group
                 label(for='titulo_b')=('Sub Título superior')
@@ -38,13 +39,13 @@ block content
                 label(for='titulo_a')=('Título Pricipal')
                 input(name='titulo_a',type='text', value=pilledit.titulo_a).form-control
 
-            div.form-group
+            div.form-group(id='texto_boton')
                 label(for='texto_boton')=('Téxto boton')
                 input(name='texto_boton',type='text', value=pilledit.texto_boton).form-control
 
             hr
 
-            div.row.form-group
+            div.row.form-group(id='url')
                 div.col-xs-8
                     label(for='url')=('Link url')
                     div.input-group
@@ -56,6 +57,13 @@ block content
                     select(name='url_type').form-control
                             option(value='_blank', selected=(pilledit.url_type == "_blank")) Abre ventana nueva
                             option(value='_self', selected=(pilledit.url_type == "_self")) Navega misma ventana
+
+            div.row.form-group(id='video', style='display:none;')
+                div.col-xs-12
+                    label(for='url')=('Insertar video <html>')
+                    div.input-group
+                        div.input-group-addon= '<html>'
+                        textarea(class='form-control', rows='3')
 
             div.row.form-group
                 div.col-xs-6
@@ -92,6 +100,8 @@ block content
             div.form-group
                 button(type='submit').btn.btn-primary
                     | Guardar Pildora
+                a(href='/pills').btn.btn-default
+                    | Cancelar
 
     article.col-md-6
         h2 Listado de Pildoras
