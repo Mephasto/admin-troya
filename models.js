@@ -13,6 +13,7 @@ var pillSchema = new Schema({
   , date_to   : Date
   , url       : String
   , url_type  : String
+  , video_html  : String
   , imagen    : String
   , columna   : Number
   , destacado : Boolean

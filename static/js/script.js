@@ -26,28 +26,31 @@ $(document).ready(function() {
     	$('#datepicker-b').val(date);
 	}
 
-	// Pill Type DropDown .change()
-    $('#pill_type').change(pillTypeChange());
     
     function pillTypeChange() {
         var type = $('#pill_type').val();
         if (type == 'default') {
-        	$('#video').hide();
-        	$('#url').show();
-        	$('#texto_boton').show();
+            $('#video_html').hide();
+            $('#url').show();
+            $('#texto_boton').show();
         }
         if (type == 'no-link'){
-        	$('#video').hide();
-        	$('#url').hide();
-        	$('#texto_boton').hide();
+            $('#video_html').hide();
+            $('#url').hide();
+            $('#texto_boton').hide();
         }
         if (type == 'video'){
-        	$('#video').show();
-        	$('#url').hide();
-        	$('#texto_boton').hide();
+            $('#video_html').show();
+            $('#url').hide();
+            $('#texto_boton').hide();
         }
         console.log(type);
-	}
+    }
+	// Pill Type DropDown .change()
+    $('#pill_type').change(
+        function () {
+            pillTypeChange();
+            });
     pillTypeChange();
 
 });

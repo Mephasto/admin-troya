@@ -178,6 +178,7 @@ server.post('/pills', function(req,res){
         pill.texto_boton = req.body.texto_boton;
         pill.date_from = req.body.date_from;
         pill.date_to = req.body.date_to;
+        pill.video_html = req.body.video_html;
         pill.url = req.body.url;
         pill.url_type = req.body.url_type;
         // Imagen mas abajo ...

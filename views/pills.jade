@@ -58,17 +58,17 @@ block content
                             option(value='_blank', selected=(pilledit.url_type == "_blank")) Abre ventana nueva
                             option(value='_self', selected=(pilledit.url_type == "_self")) Navega misma ventana
 
-            div.row.form-group(id='video', style='display:none;')
+            div.row.form-group(id='video_html', style='display:none;')
                 div.col-xs-12
                     label(for='url')=('Insertar video <html>')
                     div.input-group
                         div.input-group-addon= '<html>'
-                        textarea(class='form-control', rows='3')
+                        textarea(name='video_html', class='form-control')= pilledit.video_html
 
             div.row.form-group
                 div.col-xs-6
                     label(for='date_from')=('Fecha desde')
-                    input(name='date_from',type='text',id='datepicker', value=pilledit.date_from).form-control
+                    input(name='date_from',type='text',id='datepicker', value=pilledit.date_fromvalue=pilledit.date_from).form-control
 
                 div.col-xs-6
                     label(for='date_to')=('Fecha hasta')
