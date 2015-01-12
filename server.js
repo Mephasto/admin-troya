@@ -45,7 +45,7 @@ server.post('/', function (req, res) {
   var post = req.body;
   if (post.usuario === 'troya-admin' && post.password === 'q1w2e3r4') {
     req.session.user_id = 'troya-admin';
-    res.www.troya.com.ar/apis'/banners');
+    res.redirect(base_url+'/banners');
   } else {
     res.send('Bad user/pass');
   }
