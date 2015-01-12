@@ -18,7 +18,7 @@ server.listen(port);
 //DB connection
 mongoose.connect('mongodb://troya-admin:q1w2e3r4@ds053449.mongolab.com:53449/troya');
 var models = require('./models');
-
+var base_url = 'http://192.184.83.138:9091/';
 server.locals = { 
                   title : 'Tienda Troya CMS'
                   ,description: 'CMS para Tienda Troya'
@@ -27,6 +27,7 @@ server.locals = {
                   ,blog: false
                   ,gallery: false
                   ,message: null
+                  ,base_url: base_url
                 }
 
 ///////////////////////////////////////////
@@ -44,7 +45,7 @@ server.post('/', function (req, res) {
   var post = req.body;
   if (post.usuario === 'troya-admin' && post.password === 'q1w2e3r4') {
     req.session.user_id = 'troya-admin';
-    res.redirect('/banners');
+    res.redirect(base_url+'/banners');
   } else {
     res.send('Bad user/pass');
   }
@@ -52,7 +53,7 @@ server.post('/', function (req, res) {
 
 function checkAuth(req, res, next) {
   if (!req.session.user_id) {
-    res.redirect('/');
+    res.redirect(base_url+'/');
     res.send('You are not authorized to view this page');
   } else {
     next();
@@ -61,7 +62,7 @@ function checkAuth(req, res, next) {
 
 server.get('/logout', function (req, res) {
   delete req.session.user_id;
-  res.redirect('/');
+  res.redirect(base_url+'/');
 });      
 
 ///////////////////////////////////////////
@@ -124,7 +125,7 @@ server.post('/banners/del', function(req,res){
     return banner.remove(function (err) {
       if (!err) {
         // removed!
-        res.redirect(301, '/banners')
+        res.redirect(301, base_url+'/banners')
       } else {
         // NOT removed!
         console.log(err);
@@ -214,7 +215,7 @@ server.post('/pills', function(req,res){
         //console.log('Pill.Save error:' + err);
         res.cookie('message', message, { expires: new Date(Date.now() + 5000), httpOnly: true });
         res.cookie('messageType', messageType, { expires: new Date(Date.now() + 5000), httpOnly: true });
-        res.redirect(301, '/pills');
+        res.redirect(301, base_url+'/pills');
       };
     });
   }
@@ -233,7 +234,7 @@ server.post('/pills/del', function(req,res){
         // removed!
         res.cookie('message', 'Se borro la pildora.', { expires: new Date(Date.now() + 5000), httpOnly: true });
         res.cookie('messageType', 'warning', { expires: new Date(Date.now() + 5000), httpOnly: true });
-        res.redirect(301, '/pills')
+        res.redirect(301, base_url+'/pills')
       } else {
         // NOT removed!
         console.log(err);
@@ -272,7 +273,7 @@ server.post('/globales', function(req,res){
       if(err === null){
         res.cookie('message', 'Se guardaron los cambios.', { expires: new Date(Date.now() + 5000), httpOnly: true });
         res.cookie('messageType', 'success', { expires: new Date(Date.now() + 5000), httpOnly: true });
-        res.redirect(301, '/globales')
+        res.redirect(301, base_url+'/globales')
       };
     });
   });
