@@ -46,6 +46,7 @@ server.post('/', function (req, res) {
   if (post.usuario === 'troya-admin' && post.password === 'q1w2e3r4') {
     req.session.user_id = 'troya-admin';
     res.redirect(base_url+'/banners');
+    console.log("logedin");
   } else {
     res.send('Bad user/pass');
   }
@@ -55,7 +56,9 @@ function checkAuth(req, res, next) {
   if (!req.session.user_id) {
     res.redirect(base_url+'/');
     res.send('You are not authorized to view this page');
+    console.log("fail");
   } else {
+    console.log("next");
     next();
   }
 }
