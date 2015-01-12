@@ -46,7 +46,6 @@ server.post('/', function (req, res) {
   if (post.usuario === 'troya-admin' && post.password === 'q1w2e3r4') {
     req.session.user_id = 'troya-admin';
     res.redirect(base_url+'/banners');
-    console.log("logedin");
   } else {
     res.send('Bad user/pass');
   }
@@ -74,7 +73,7 @@ server.get('/logout', function (req, res) {
 ///////////////////////////////////////////
 
 // GET: Banners
-server.get('/banners', checkAuth, function(req,res){
+server.get('/banners', function(req,res){
   var query = models.Banner.find();
   query.sort('date_to').execFind(function (err, banners) {
     if(err === null){
