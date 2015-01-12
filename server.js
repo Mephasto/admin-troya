@@ -18,7 +18,7 @@ server.listen(port);
 //DB connection
 mongoose.connect('mongodb://troya-admin:q1w2e3r4@ds053449.mongolab.com:53449/troya');
 var models = require('./models');
-var base_url = 'http://www.troya.com.ar/apis/';
+var base_url = 'http://www.troya.com.ar/apis';
 server.locals = { 
                   title : 'Tienda Troya CMS'
                   ,description: 'CMS para Tienda Troya'
