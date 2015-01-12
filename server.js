@@ -55,10 +55,11 @@ server.post('/', function (req, res) {
 function checkAuth(req, res, next) {
   if (!req.session.user_id) {
     res.redirect(base_url+'/');
-    res.send('You are not authorized to view this page');
     console.log("fail");
+    console.log(req.session.user_id);
   } else {
     console.log("next");
+    console.log(req.session.user_id);
     next();
   }
 }
