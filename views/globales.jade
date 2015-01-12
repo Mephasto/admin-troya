@@ -7,7 +7,7 @@ block content
             div(role="alert").alert.alert-success
                 strong=message
         form(action='/globales',method='post')
-            input(type="hidden", name="id", value=globales.id);
+            input(type="hidden", name="id", value=globales._id);
             div.form-group
                 label(for='prox_apertura_date')=('Próxima apertura - Fecha:')
                 input(name='prox_apertura_date',type='text',id='datepicker', value=globales.prox_apertura_date).form-control
