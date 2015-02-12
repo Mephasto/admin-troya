@@ -36,7 +36,6 @@ $(document).ready(function() {
         }
         if (type == 'no-link'){
             $('#video_html').hide();
-            $('#url').hide();
             $('#texto_boton').hide();
         }
         if (type == 'video'){
