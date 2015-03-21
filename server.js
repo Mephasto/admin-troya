@@ -18,7 +18,7 @@ server.listen(port);
 //DB connection
 mongoose.connect('mongodb://troya-admin:q1w2e3r4@ds053449.mongolab.com:53449/troya');
 var models = require('./models');
-var base_url = 'http://192.184.83.138:9091';
+var base_url = 'http://190.106.130.29:9091';
 server.locals = { 
                   title : 'Tienda Troya CMS'
                   ,description: 'CMS para Tienda Troya'
@@ -245,6 +245,108 @@ server.post('/pills/del', function(req,res){
 });
 
 ///////////////////////////////////////////
+//              Creadores                //
+///////////////////////////////////////////
+
+// GET: Creadores
+// checkAuth, 
+server.get('/creadores', function(req,res){
+  return models.Creador.findById(req.query.id, function (err, creador_edit) {
+    // FEEDBACK Messages
+    var message = ''; var messageType = '';
+    if (req.cookies.message != 'undefined') {
+      message = req.cookies.message;
+      messageType = req.cookies.messageType;
+    }
+
+    var query = models.Creador.find();
+    query.sort({destacado: -1}).execFind(function (err, creadores) {
+      if(err === null){
+        if(creador_edit === undefined || creador_edit === null) creador_edit = '';
+        res.render('creadores.jade', {
+            title     : server.locals.title + ' - Pildoras',
+            creadores     : creadores,
+            creadoredit : creador_edit,
+            message : message,
+            messageType : messageType,
+            activeNav : 'creadores'
+        });
+      }
+    });
+  });
+});
+// POST: creadores
+server.post('/creadores', function(req,res){
+  console.log(req.body);
+  if (req.body.action == "update") {
+    models.Creador.findById(req.body.id, function(err, creador){
+      if(!err){
+        creador.nombre = req.body.nombre;
+        creador.mage_id = req.body.mage_id;
+        creador.descripcion = req.body.descripcion;
+        creador.video_url = req.body.video_url;
+        creador.video_txt = req.body.video_txt;
+        creador.vide_url_type = req.body.vide_url_type;
+        creador.url = req.body.url;
+        creador.destacado = req.body.destacado;
+        creador.estado = req.body.estado;
+        checkImage(creador);
+        save(creador, 'Se guardaron los cambios en "'+creador.nombre+'".', 'success');
+      }
+    });
+
+  }else{
+    var creador = new models.Creador(req.body);
+    checkImage(creador);
+    save(creador, 'Se creó con exito el creador "'+creador.nombre+'".', 'success');
+  }
+
+  function checkImage (creador) {
+    if(req.files.imagen_avatar.originalFilename) {
+      creador.imagen_avatar = req.files.imagen_avatar.originalFilename;
+      fs.readFile(req.files.imagen_avatar.path, function (err, data) {
+        var newPath = __dirname + "/static/images/creadores/" + creador.imagen_avatar;
+        fs.writeFile(newPath, data, function (err) {
+          console.log('Error File Write:' + err);
+        });
+      });
+    }
+  }
+  function save (creador, message, messageType) {
+    creador.save(function(err){
+      if(err === null){
+        //console.log('Creador.Save error:' + err);
+        res.cookie('message', message, { expires: new Date(Date.now() + 5000), httpOnly: true });
+        res.cookie('messageType', messageType, { expires: new Date(Date.now() + 5000), httpOnly: true });
+        res.redirect(301, base_url+'/creadores');
+      };
+    });
+  }
+});
+
+// POST: creadores - DELETE
+server.post('/creadores/del', function(req,res){
+  console.log('POST to DELETE Creadores');
+  return models.Creador.findById(req.body.id, function (err, creador) {
+    if (!creador){
+      return res.render('creadores.jade', {message : 'No se pudo borrar!'}); 
+    }
+    return creador.remove(function (err) {
+      if (!err) {
+        // removed!
+        res.cookie('message', 'Se borro el creador...', { expires: new Date(Date.now() + 5000), httpOnly: true });
+        res.cookie('messageType', 'warning', { expires: new Date(Date.now() + 5000), httpOnly: true });
+        res.redirect(301, base_url+'/creadores')
+      } else {
+        // NOT removed!
+        console.log(err);
+        res.render('creadores.jade', {message : 'Error! - {id: ' + id + '}'});
+      }
+    });
+  });
+});
+
+///////////////////////////////////////////
 //              Globales                 //
 ///////////////////////////////////////////
 
@@ -297,6 +399,15 @@ server.get('/getPills', function(req,res){
   query.sort('destacado').execFind(function (err, pills) {
     if(err === null){
       res.send(req.query.callback + "(" + JSON.stringify(pills) + ");");
+    }
+  });
+});
+
+server.get('/getCreadores', function(req,res){
+  var query = models.Creador.find();
+  query.sort('name').execFind(function (err, creadores) {
+    if(err === null){
+      res.send(req.query.callback + "(" + JSON.stringify(creadores) + ");");
     }
   });
 });

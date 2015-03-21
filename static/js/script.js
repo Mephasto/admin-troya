@@ -37,11 +37,12 @@ $(document).ready(function() {
         if (type == 'no-link'){
             $('#video_html').hide();
             $('#texto_boton').hide();
+            $('#url').hide();
         }
         if (type == 'video'){
             $('#video_html').show();
-            $('#url').hide();
-            $('#texto_boton').hide();
+            $('#url').show();
+            $('#texto_boton').show();
         }
         console.log(type);
     }
@@ -49,7 +50,7 @@ $(document).ready(function() {
     $('#pill_type').change(
         function () {
             pillTypeChange();
-            });
+        });
     pillTypeChange();
 
 });

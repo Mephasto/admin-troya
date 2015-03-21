@@ -1,0 +1,133 @@
+extends admin-layout
+block content
+
+    article.col-md-6
+        if creadoredit
+            - var name = 'Editando: "'+creadoredit.nombre+'"'
+            h2(class="bg-success")= name
+        else
+            h2 Nuevo Creador
+        hr
+        if message
+            - var klass = (messageType === 'success' ? 'alert-success' : 'alert-warning')
+            div(role="alert").alert.alert-dismissible(class=klass)
+                strong=message
+
+        form(action='/creadores',method='post', enctype='multipart/form-data')
+            if creadoredit
+                input(type="hidden", name="id", value=creadoredit.id);
+                input(type="hidden", name="action", value="update");
+                p= creadoredit
+            else
+                input(type="hidden", name="action", value="post");
+
+            div.row.form-group
+                div.col-xs-8
+                    label(for='nombre')=('Nombre')
+                    input(name='nombre',type='text', value=creadoredit.nombre).form-control
+
+                div.col-xs-4
+                    label(for='mage_id')=('Mage ID')
+                    input(name='mage_id',type='text', value=creadoredit.mage_id).form-control
+
+            div.row.form-group
+                div.col-xs-12
+                    label(for='subtitulo')=('Subtitulo')
+                    input(name='subtitulo',type='text', value=creadoredit.subtitulo).form-control
+
+            div.row.form-group(id='descripcion')
+                div.col-xs-12
+                    label(for='descripcion')=('Descripcion')
+                    div.input-group
+                        textarea(name='descripcion', class='form-control')= creadoredit.descripcion
+
+            div.row.form-group(id='url')
+                div.col-xs-12
+                    label(for='url')=('Link a Catalogo')
+                    div.input-group
+                        div.input-group-addon= 'http://'
+                        input(name='url',type='text', value=creadoredit.url).form-control
+            hr
+
+            div.row.form-group(id='video_url')
+                
+                div.col-xs-12(id='video_txt')
+                    label(for='video_txt')=('Téxto link de video')
+                    input(name='video_txt',type='text', value=creadoredit.video_txt).form-control
+                    br
+
+                div.col-xs-8
+                    label(for='video_url')=('Url a video')
+                    div.input-group
+                        div.input-group-addon= 'http://'
+                        input(name='video_url',type='text', value=creadoredit.video_url).form-control
+
+                div.col-xs-4
+                    label(for='video_url_type')=('Tipo de link a video')
+                    select(name='video_url_type').form-control
+                            option(value='_blank', selected=(creadoredit.vide_url_type == "_blank")) Abre ventana nueva
+                            option(value='_self', selected=(creadoredit.video_url_type == "_self")) Navega misma ventana
+
+
+            hr
+
+            div.form-group
+                label(for='imagen_avatar')=('Foto creador')
+                pre
+                    if  creadoredit.imagen_avatar
+                        img(src="/images/creadores/"+creadoredit.imagen_avatar, alt="")
+                        input(name='imagen_avatar',type='file')
+                    else
+                        input(name='imagen_avatar',type='file')
+
+            div.row.form-group
+                div.col-xs-6
+                    label(for='destacado')=('Destacado')
+                    input(type="checkbox", name="destacado").form-control
+                div.col-xs-6
+
+            div.form-group
+                button(type='submit').btn.btn-primary
+                    | Guardar Creador
+                a(href='/creadores').btn.btn-default
+                    | Cancelar
+
+    article.col-md-6
+        h2 Listado de Creadores
+        hr
+        table.table.table-condensed
+            tr
+                th= 'Mage ID'
+                th= 'Nombre'
+                th= 'Foto'
+                th= ''
+                th= ''
+
+            each item in creadores
+                tr(class=item.id === creadoredit.id ? "success" : "")
+                    //td(class="text-center")
+                    //    span(class=item.destacado === true ? "glyphicon glyphicon-ok" : "")
+                    td
+                        span= item.mage_id
+                    td
+                        span= item.nombre
+                    td
+                        if item.imagen_avatar
+                            a(href="/images/creadores/" + item.imagen_avatar).glyphicon.glyphicon-picture.text-success
+                        else
+                            span.glyphicon.glyphicon-minus
+                    td
+                        form(action='/creadores', method='get', id="edit"+item.id)
+                            input(type='hidden', name='id', value=item.id)
+                            a(onclick="document.getElementById('edit"+item.id+"').submit();").glyphicon.glyphicon-pencil.text-success
+                    td
+                        form(action='/creadores/del', method='post', id="delete"+item.id)
+                            input(type='hidden', name='id', value=item.id)
+                            a(onclick="deleteConfirmation('" + item.id + "');").glyphicon.glyphicon-remove.text-danger
+    script.
+        function deleteConfirmation(id)
+        {
+            if(confirm("Estas seguro que queres borrar este item?")) {
+                document.getElementById("delete"+id).submit();
+            }
+        }

@@ -13,6 +13,10 @@ header
                 li(class=klass)
                     a(href=base_url + '/pills')=('Pildoras')
                 
+                - var klass = (activeNav=='creadores' ? 'active' : '')
+                li(class=klass)
+                    a(href=base_url + '/creadores')=('Creadores')
+
                 - var klass = (activeNav=='globales' ? 'active' : '')
                 li(class=klass)
                     a(href=base_url + '/globales')=('Variables Globales')

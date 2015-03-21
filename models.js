@@ -28,12 +28,27 @@ var bannerSchema = new Schema({
   , link  		: String
 });
 
+var creadorSchema = new Schema({
+    nombre    : String
+  , subtitulo : String
+  , mage_id   : Number
+  , imagen_avatar  : String
+  , descripcion : String
+  , url       : String
+  , video_url : String
+  , video_url_type  : String
+  , video_txt : String
+  , destacado : Boolean
+  , estado    : Number
+});
+
 var globalesSchema = new Schema({
     prox_apertura_date          : Date
   , prox_apertura_hora_desde    : String
   , prox_apertura_hora_hasta    : String
 });
 
+exports.Creador = mongoose.model('Creador', creadorSchema);
 exports.Pill = mongoose.model('Pill', pillSchema);
 exports.Banner = mongoose.model('Banner', bannerSchema);
 exports.Globales = mongoose.model('Globales', globalesSchema);

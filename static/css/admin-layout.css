@@ -23,3 +23,6 @@ input[type='submit'] {
 textarea {
 	min-height: 200px;
 }
+button[type='submit'] {
+	margin-right: 10px;
+}
