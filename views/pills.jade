@@ -65,6 +65,16 @@ block content
                     div.input-group
                         div.input-group-addon= '<html>'
                         textarea(name='video_html', class='form-control')= pilledit.video_html
+                div.col-xs-6
+                    label(for='video_titulo')=('Titulo Video (izq)')
+                    div.input-group
+                        div
+                        textarea(name='video_titulo', class='form-control')= pilledit.video_titulo
+                div.col-xs-6
+                    label(for='video_a_text')=('Texto Link (der)')
+                    div.input-group
+                        div
+                        textarea(name='video_a_texto', class='form-control')= pilledit.video_a_texto
 
             div.row.form-group
                 div.col-xs-6

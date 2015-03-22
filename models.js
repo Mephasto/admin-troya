@@ -14,6 +14,8 @@ var pillSchema = new Schema({
   , url       : String
   , url_type  : String
   , video_html  : String
+  , video_titulo : String
+  , video_a_texto : String
   , imagen    : String
   , columna   : Number
   , destacado : Boolean
