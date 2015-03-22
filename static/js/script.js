@@ -41,8 +41,8 @@ $(document).ready(function() {
         }
         if (type == 'video'){
             $('#video_html').show();
-            $('#url').show();
-            $('#texto_boton').show();
+            $('#url').hide();
+            $('#texto_boton').hide();
         }
         console.log(type);
     }
