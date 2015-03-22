@@ -41,7 +41,7 @@ $(document).ready(function() {
         }
         if (type == 'video'){
             $('#video_html').show();
-            $('#url').hide();
+            $('#url').show();
             $('#texto_boton').hide();
         }
         console.log(type);
