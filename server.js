@@ -407,7 +407,7 @@ server.get('/getPills', function(req,res){
 
 server.get('/getCreadores', function(req,res){
   var query = models.Creador.find();
-  query.sort('name').execFind(function (err, creadores) {
+  query.sort('nombre').execFind(function (err, creadores) {
     if(err === null){
       res.send(req.query.callback + "(" + JSON.stringify(creadores) + ");");
     }
