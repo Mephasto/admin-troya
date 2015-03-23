@@ -37,9 +37,11 @@ var creadorSchema = new Schema({
   , imagen_avatar  : String
   , descripcion : String
   , url       : String
+  , video_html : String
   , video_url : String
   , video_url_type  : String
-  , video_txt : String
+  , video_titulo : String
+  , video_a_texto : String
   , destacado : Boolean
   , estado    : Number
 });

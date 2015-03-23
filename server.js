@@ -18,7 +18,7 @@ server.listen(port);
 //DB connection
 mongoose.connect('mongodb://troya-admin:q1w2e3r4@ds053449.mongolab.com:53449/troya');
 var models = require('./models');
-var base_url = 'http://190.106.130.29:9091';
+var base_url = 'http://localhost:9091';
 server.locals = { 
                   title : 'Tienda Troya CMS'
                   ,description: 'CMS para Tienda Troya'
@@ -286,9 +286,11 @@ server.post('/creadores', function(req,res){
         creador.nombre = req.body.nombre;
         creador.mage_id = req.body.mage_id;
         creador.descripcion = req.body.descripcion;
+        creador.video_html = req.body.video_html;
         creador.video_url = req.body.video_url;
-        creador.video_txt = req.body.video_txt;
-        creador.vide_url_type = req.body.vide_url_type;
+        creador.video_url_type = req.body.video_url_type;
+        creador.video_titulo = req.body.video_titulo;
+        creador.video_a_texto = req.body.video_a_texto;
         creador.url = req.body.url;
         creador.destacado = req.body.destacado;
         creador.estado = req.body.estado;

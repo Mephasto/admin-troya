@@ -48,23 +48,32 @@ block content
                         input(name='url',type='text', value=creadoredit.url).form-control
             hr
 
-            div.row.form-group(id='video_url')
-                
-                div.col-xs-12(id='video_txt')
-                    label(for='video_txt')=('Téxto link de video')
-                    input(name='video_txt',type='text', value=creadoredit.video_txt).form-control
-                    br
+            div.row.form-group
+                div.col-xs-12
+                    label(for='url')=('Insertar video <html>')
+                    div.input-group
+                        div.input-group-addon= '<html>'
+                        textarea(name='video_html', class='form-control')= creadoredit.video_html
 
+            div.row.form-group
+                div.col-xs-6
+                    label(for='video_titulo')=('Titulo Video (izq)')
+                    input(name='video_titulo', type="text", value=creadoredit.video_titulo).form-control
+                div.col-xs-6
+                    label(for='video_a_texto')=('Texto Link (der)')
+                    input(name='video_a_texto', type="text", value=creadoredit.video_a_texto).form-control
+
+            div.row.form-group
                 div.col-xs-8
-                    label(for='video_url')=('Url a video')
+                    label(for='video_url')=('URL link en Modal (derecha)')
                     div.input-group
                         div.input-group-addon= 'http://'
                         input(name='video_url',type='text', value=creadoredit.video_url).form-control
 
                 div.col-xs-4
-                    label(for='video_url_type')=('Tipo de link a video')
+                    label(for='video_url_type')=('Tipo de link en Modal')
                     select(name='video_url_type').form-control
-                            option(value='_blank', selected=(creadoredit.vide_url_type == "_blank")) Abre ventana nueva
+                            option(value='_blank', selected=(creadoredit.video_url_type == "_blank")) Abre ventana nueva
                             option(value='_self', selected=(creadoredit.video_url_type == "_self")) Navega misma ventana
 
 
