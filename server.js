@@ -262,11 +262,11 @@ server.get('/creadores', function(req,res){
     }
 
     var query = models.Creador.find();
-    query.sort({destacado: -1}).execFind(function (err, creadores) {
+    query.sort('nombre').execFind(function (err, creadores) {
       if(err === null){
         if(creador_edit === undefined || creador_edit === null) creador_edit = '';
         res.render('creadores.jade', {
-            title     : server.locals.title + ' - Pildoras',
+            title     : server.locals.title + ' - Creadores',
             creadores     : creadores,
             creadoredit : creador_edit,
             message : message,
