@@ -179,7 +179,6 @@ server.post('/pills', function(req,res){
         pill.texto_boton = req.body.texto_boton;
         pill.date_from = req.body.date_from;
         pill.date_to = req.body.date_to;
-        pill.texto_boton_video = req.body.texto_boton_video;
         pill.video_html = req.body.video_html;
         pill.video_titulo = req.body.video_titulo;
         pill.video_a_texto = req.body.video_a_texto;
@@ -287,6 +286,7 @@ server.post('/creadores', function(req,res){
         creador.nombre = req.body.nombre;
         creador.mage_id = req.body.mage_id;
         creador.descripcion = req.body.descripcion;
+        creador.texto_boton_video = req.body.texto_boton_video;
         creador.video_html = req.body.video_html;
         creador.video_url = req.body.video_url;
         creador.video_url_type = req.body.video_url_type;
