@@ -179,6 +179,7 @@ server.post('/pills', function(req,res){
         pill.texto_boton = req.body.texto_boton;
         pill.date_from = req.body.date_from;
         pill.date_to = req.body.date_to;
+        pill.texto_boton_video = req.body.texto_boton_video;
         pill.video_html = req.body.video_html;
         pill.video_titulo = req.body.video_titulo;
         pill.video_a_texto = req.body.video_a_texto;

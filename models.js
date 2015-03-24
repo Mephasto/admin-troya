@@ -23,11 +23,11 @@ var pillSchema = new Schema({
 });
 
 var bannerSchema = new Schema({
-    nombre		: String
-  , date_from	: String
-  , date_to		: String
-  , imagen		: String
-  , link  		: String
+    nombre    : String
+  , date_from : String
+  , date_to   : String
+  , imagen    : String
+  , link      : String
 });
 
 var creadorSchema = new Schema({
@@ -37,6 +37,7 @@ var creadorSchema = new Schema({
   , imagen_avatar  : String
   , descripcion : String
   , url       : String
+  , texto_boton_video : String
   , video_html : String
   , video_url : String
   , video_url_type  : String
